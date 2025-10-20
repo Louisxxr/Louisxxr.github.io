@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]  // 块公式
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+  <meta name="description" content="Stanford CS336, Spring 2025: Outline &amp; Key points  03_Architecture, Training Vanilla transformer    使用Post-norm &amp; LayerNorm.   使用ReLU.   使用正余弦位置编码.   Architecture   Normalization位置   绝大部分LLM采">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【CS336: Language Modeling from Scratch】Lecture-3笔记">
+<meta property="og:url" content="http://example.com/2025/10/20/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Louis&#39; Notes">
+<meta property="og:description" content="Stanford CS336, Spring 2025: Outline &amp; Key points  03_Architecture, Training Vanilla transformer    使用Post-norm &amp; LayerNorm.   使用ReLU.   使用正余弦位置编码.   Architecture   Normalization位置   绝大部分LLM采">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/vanilla_transformer.png">
+<meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/normalization.png">
+<meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/activations.png">
+<meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/SWA.png">
+<meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/%E8%AF%8D%E5%85%B8%E5%A4%A7%E5%B0%8F.png">
+<meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/%E8%AE%AD%E7%BB%83%E7%A8%B3%E5%AE%9A%E6%80%A7.png">
+<meta property="article:published_time" content="2025-10-20T15:39:56.000Z">
+<meta property="article:modified_time" content="2025-10-20T16:33:25.887Z">
+<meta property="article:author" content="Xianrui Xie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/vanilla_transformer.png">
+
+<link rel="canonical" href="http://example.com/2025/10/20/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>【CS336: Language Modeling from Scratch】Lecture-3笔记 | Louis' Notes</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Louis' Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/10/20/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Xianrui Xie">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Louis' Notes">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【CS336: Language Modeling from Scratch】Lecture-3笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2025-10-20 23:39:56" itemprop="dateCreated datePublished" datetime="2025-10-20T23:39:56+08:00">2025-10-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2025-10-21 00:33:25" itemprop="dateModified" datetime="2025-10-21T00:33:25+08:00">2025-10-21</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p><a target="_blank" rel="noopener" href="https://stanford-cs336.github.io/spring2025/">Stanford CS336, Spring 2025</a>: Outline &amp; Key points</p>
+</blockquote>
+<h2 id="03-Architecture-Training">03_Architecture, Training</h2>
+<h3 id="Vanilla-transformer">Vanilla transformer</h3>
+<img src="/images/【CS336: Language Modeling from Scratch】Lecture-3笔记/vanilla_transformer.png" alt="vanilla_transformer" />
+<ol>
+<li>
+<p>使用Post-norm &amp; LayerNorm.</p>
+</li>
+<li>
+<p>使用ReLU.</p>
+</li>
+<li>
+<p>使用正余弦位置编码.</p>
+</li>
+</ol>
+<h3 id="Architecture">Architecture</h3>
+<ol>
+<li>
+<p>Normalization位置<br>
+<img src="/images/【CS336: Language Modeling from Scratch】Lecture-3笔记/normalization.png" alt="normalization" /></p>
+<ul>
+<li>绝大部分LLM采用Pre-norm（以及最后输出头之前的Normalization），维护通畅的残差信号路径.</li>
+<li>Pre-norm保留了恒等梯度路径，使得梯度流动更稳定，因此能支撑大规模网络的稳定训练，并允许使用更大的学习率.</li>
+<li>所以有人提出Double-norm、Non-residual post-norm.</li>
+</ul>
+</li>
+<li>
+<p>LayerNorm还是RMSNorm</p>
+<ul>
+<li>LayerNorm<br>
+$$y = \frac{x - \mathrm{E}[x]}{\sqrt{\mathrm{Var}[x] + \epsilon}} * \gamma + \beta$$</li>
+<li>RMSNorm<br>
+$$y = \frac{x}{\sqrt{|x|^{2}_{2} + \epsilon}} * \gamma$$</li>
+<li>性能接近，但绝大部分LLM采用RMSNorm.</li>
+<li>尽管RMSNorm相较LayerNorm带来更小的显存占以及更少的FLOPs，但是这些提升基本可以忽略（Matmul matters），更重要的是，RMSNorm通过减少显存和计算单元之间的数据传输，有效减少Runtime.</li>
+</ul>
+</li>
+<li>
+<p>偏置可弃</p>
+<ul>
+<li>For FLOPs, memory (though negligible) and optimization stability.</li>
+</ul>
+</li>
+<li>
+<p>LU和GLU<br>
+<img src="/images/【CS336: Language Modeling from Scratch】Lecture-3笔记/activations.png" alt="activations" /></p>
+<ul>
+<li>ReLU<br>
+$$FF(x) = \max(0, xW_{1})W_{2}$$</li>
+<li>ReGLU<br>
+$$FF(x) = (\max(0, xW_{1})\otimes xV)W_{2}$$</li>
+<li>GeLU<br>
+$$FF(x) = \mathrm{GeLU}(xW_{1})W_{2}$$<br>
+$$\mathrm{GeLU} := x\Phi(x)$$<br>
+$$\Phi(x):\mathrm{\ CDF\ of\ N}(0, 1)$$</li>
+<li>GeGLU<br>
+$$FF(x) = (\mathrm{GeLU}(xW_{1})\otimes xV)W_{2}$$</li>
+<li>Swish<br>
+$$FF(x) = \mathrm{Swish}(xW_{1})W_{2}$$<br>
+$$\mathrm{Swish} := x\sigma(x)$$</li>
+<li>SwiGLU<br>
+$$FF(x) = (\mathrm{Swish}(xW_{1})\otimes xV)W_{2}$$</li>
+<li>门控线性单元（GLU）被实验证明能够提升模型性能，通过一个线性变换分支提供门控信号，增强模型表达能力.</li>
+<li>为了保持总参数量不变，使用GLU的Feedforward层其Feedforward-dim为原来的2/3.</li>
+</ul>
+</li>
+<li>
+<p>Parallel layers</p>
+<ul>
+<li>Serial layers<br>
+$$y = x + \mathrm{MLP}(\mathrm{Norm}(x + \mathrm{Attention}(\mathrm{Norm}(x))))$$</li>
+<li>Parallen layers<br>
+$$y = x + \mathrm{MLP}(\mathrm{Norm}(x)) + \mathrm{Attention}(\mathrm{Norm}(x))$$</li>
+<li>并行化越好，GPU效率越高，如果采用Parallel layers架构，Attention层和FF层的Normalization和Matmul可以融合.</li>
+</ul>
+</li>
+<li>
+<p>RoPE</p>
+<ul>
+<li>正余弦位置编码：在Embedding的不同维度对上使用不同频率的正弦和余弦函数，使得序列位置在这些函数所张成的二维平面上形成沿圆周变化的相位表示.<br>
+$$\mathrm{PE}(pos, 2i) = \sin{\frac{pos}{10000^{\frac{2i}{d_{model}}}}}$$<br>
+$$\mathrm{PE}(pos, 2i + 1) = \cos{\frac{pos}{10000^{\frac{2i}{d_{model}}}}}$$<br>
+$$\mathrm{Embed}(x, i) = \mathrm{TokenEmbed}(x) + \mathrm{PE}_{i}$$</li>
+<li>绝对位置编码：可学习.<br>
+$$\mathrm{Embed}(x, i) = \mathrm{TokenEmbed}(x) + \mathrm{PosEmbed}(i)$$</li>
+<li>相对位置编码：可学习，作用在Attention层.<br>
+$$e_{ij} = \frac{x_{i}W^{Q}W^{K\top}x_{j}^{\top} + r_{i - j}}{\sqrt{d_{k}}}$$</li>
+<li>RoPE
+<ul>
+<li>Preliminary
+          $$
+          R(\theta) =
+          \begin{bmatrix}
+          \cos\theta & -\sin\theta \\
+          \sin\theta & \cos\theta
+          \end{bmatrix}
+          $$
+          
+这个变换表示在二维平面上将向量(x, y)绕原点(0, 0)按逆时针方向旋转角度θ，长度保持不变.</li>
+<li>公式
+          $$
+          R(i; \theta_{1}, \theta_{2}, ..., \theta_{d / 2}) =
+          \begin{bmatrix}
+          \cos i\theta_{1} & -\sin i\theta_{1} & 0 & 0 & ... & 0 & 0 \\
+          \sin i\theta_{1} & \cos i\theta_{1} & 0 & 0 & ... & 0 & 0 \\
+          0 & 0 & \cos i\theta_{2} & -\sin i\theta_{2} & ... & 0 & 0 \\
+          0 & 0 & \sin i\theta_{2} & \cos i\theta_{2} & ... & 0 & 0 \\
+          ... & ... & ... & ... & ... & ... & ... \\
+          0 & 0 & 0 & 0 & ... & \cos i\theta_{d / 2} & -\sin i\theta_{d / 2} \\
+          0 & 0 & 0 & 0 & ... & \sin i\theta_{d / 2} & \cos i\theta_{d / 2}
+          \end{bmatrix}
+          $$
+          
+$$e_{ij} = \frac{x_{i}W^{Q}R(i)(x_{j}W^{K}R(j))^{\top}}{\sqrt{d_{k}}} = \frac{x_{i}W^{Q}\overbrace{R(i)R(j)^{\top}}^{R_{i - j}}W^{K\top}x_{j}^{\top}}{\sqrt{d_{k}}}$$<br>
+满足$f(x, i)\odot f(y, j) = g(x, y, i - j)$.</li>
+<li>模型训练和推理时，仍然是计算点积（而不将上式展开），推理时KV cache中的K带位置信息.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>MQA / GQA</p>
+<ul>
+<li>动机：减少推理时的KV cache存储和内存带宽压力，权衡推理效率和模型性能.</li>
+<li>Preliminary：Attention维度变化分析.
+<ul>
+<li>假设：B(batch-size), N(seq-len), D(model-dim), h(num-heads), d(head-dim)</li>
+<li>Input $x$: (B, N, D)</li>
+<li>Parameters $W^{Q}, W^{K}, W^{V}, W^{O}$: (D, h * d)</li>
+<li>$Q, K, V$: (B, N, h * d) -&gt; (B, N, h, d) -&gt; (B, h, N, d)</li>
+<li>$Q \cdot K^{\top}$: (B, h, N, N)</li>
+<li>$\mathrm{softmax}\left(\frac{Q \cdot K^{\top}}{\sqrt{d}}\right) \cdot V$: (B, h, N, d) -&gt; (B, N, h * d)</li>
+<li>output: (B, N, D)</li>
+</ul>
+</li>
+<li>训练时MACs（Multiply-ACcumulate次数）：<br>
+$$3BND^{2} + BN^{2}D + BN^{2}D + BND^{2} = 4BND^{2} + 2BN^{2}D$$</li>
+<li>推理时MACs：<br>
+$$4BND^{2} + 2B(1 * \sum\limits_{n=1}^{N}n)D \approx 4BND^{2} + BN^{2}D$$</li>
+<li>训练时访存：<br>
+$$O(\overbrace{BND}^{activations} + \overbrace{D^{2}}^{parameters}+ \overbrace{BhN^{2}}^{softmax})$$</li>
+<li>推理时访存：<br>
+$$O(\overbrace{BN^{2}D}^{activations} + \overbrace{ND^{2}}^{parameters})$$</li>
+<li>引入MQA，推理时访存：<br>
+$$O(\overbrace{BN^{2}d}^{activations} + \overbrace{ND^{2}}^{parameters})$$</li>
+<li>计算强度（Arithmetic intensity）等于总计算量除以总访存量，其临界值为峰值算力除以显存带宽（反映硬件能力），高于临界值说明算力为瓶颈（假设计算量打满，带宽还有余），低于临界值说明带宽为瓶颈（假设访存量打满，算力还有余）.</li>
+<li>MQA一定程度上减少了推理时的内存带宽压力（但不多）.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># LLAMA 13B</span></span><br><span class="line">B = <span class="number">8</span></span><br><span class="line">N = <span class="number">2048</span></span><br><span class="line">D = <span class="number">5120</span></span><br><span class="line">h = <span class="number">40</span></span><br><span class="line">d = D // h</span><br><span class="line"></span><br><span class="line">train_flops = B * N * D * D + B * N * N * D</span><br><span class="line">infer_flops = B * N * D * D + B * N * N * D</span><br><span class="line">train_bytes = B * N * D + D * D + B * h * N * N</span><br><span class="line">infer_bytes = B * N * N * D + N * D * D</span><br><span class="line"></span><br><span class="line">train_AI = train_flops / train_bytes</span><br><span class="line">infer_AI = infer_flops / infer_bytes</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Train AI: <span class="subst">&#123;train_AI:<span class="number">.2</span>f&#125;</span> FLOPs/Byte&quot;</span>)  <span class="comment"># 414.04</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Infer AI: <span class="subst">&#123;infer_AI:<span class="number">.2</span>f&#125;</span> FLOPs/Byte&quot;</span>)  <span class="comment"># 2.67</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 引入MQA</span></span><br><span class="line">infer_bytes = B * N * N * d + N * D * D</span><br><span class="line">infer_AI = infer_flops / infer_bytes</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Infer AI with MQA: <span class="subst">&#123;infer_AI:<span class="number">.2</span>f&#125;</span> FLOPs/Byte&quot;</span>)  <span class="comment"># 10.37</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Large batch size when inferencing</span></span><br><span class="line">B = <span class="number">128</span></span><br><span class="line">infer_flops = B * N * D * D + B * N * N * D</span><br><span class="line">infer_bytes = B * N * N * d + N * D * D</span><br><span class="line">infer_AI = infer_flops / infer_bytes</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;Infer AI with MQA: <span class="subst">&#123;infer_AI:<span class="number">.2</span>f&#125;</span> FLOPs/Byte&quot;</span>)  <span class="comment"># 78.60</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li>
+<p>Sparse attention (Especially, sliding window attention)<br>
+<img src="/images/【CS336: Language Modeling from Scratch】Lecture-3笔记/SWA.png" alt="SWA" /></p>
+<ul>
+<li>动机：Attention平方复杂度的背景下，对长序列权衡计算代价和模型性能.</li>
+<li>SWA：让模型深度来扩展有效上下文.</li>
+<li>更新的做法：在模型各层交叉使用Full attention和Sparse attention.
+<blockquote>
+<p>Cohere Command A</p>
+<ul>
+<li>Interleave 3 SWA blocks and 1 FA block.</li>
+<li>SWA with RoPE, FA without PE.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="Training-hyperparameters-Very-empirical-and-isn’t-written-in-stone">Training: hyperparameters (Very empirical and isn’t written in stone)</h3>
+<ol>
+<li>
+<p>Feedforward-dim to model-dim ratio<br>
+$$d_{ff} = 4d_{model}$$<br>
+$$\mathrm{Especially\ with\ GLU:\ }d_{ff} = \frac{8}{3}d_{model} = 2.66d_{model}$$</p>
+</li>
+<li>
+<p>Head-dim * num-heads to model-dim ratio<br>
+$$d_{head} * n_{head} = d_{model}$$</p>
+</li>
+<li>
+<p>Model-dim to num-layers ratio (Aspect ratio)</p>
+<ul>
+<li>约为100.</li>
+<li>从并行化的角度考虑，更宽的模型比更深的模型对流水线并行更友好.</li>
+<li>Residual解决了梯度问题，但大模型时代硬件和并行约束变得更关键，因此宽比深更优.</li>
+<li>深度依然存在（100–200比例已经算深了），但不会无限追求堆层.</li>
+</ul>
+</li>
+<li>
+<p>词典大小<br>
+<img src="/images/【CS336: Language Modeling from Scratch】Lecture-3笔记/词典大小.png" alt="词典大小" /></p>
+</li>
+<li>
+<p>需不需要正则</p>
+<ul>
+<li>预训练一般只进行1个Epoch，基本不存在过拟合问题.</li>
+<li>但是一些模型仍然保留Weight decay策略，有研究说明Weight decay和LR衰减相互作用可以带来更好的Training loss下降.</li>
+</ul>
+</li>
+</ol>
+<h3 id="Training-stability">Training: stability</h3>
+<ol>
+<li>
+<p>什么是“训练稳定性”<br>
+<img src="/images/【CS336: Language Modeling from Scratch】Lecture-3笔记/训练稳定性.png" alt="训练稳定性" /><br>
+Don’t train models that look like the blue curve!</p>
+<ul>
+<li>指标1：Loss.</li>
+<li>指标2：梯度范数.</li>
+<li>训练稳定性的核心是激活值尺度和参数尺度，问题常常出在Softmax：CE损失没有约束Logits尺度导致Softmax中的指数操作出现上溢或下溢，进而影响训练稳定性.</li>
+</ul>
+</li>
+<li>
+<p>For output softmax: Z-loss<br>
+$$L_{total} = L_{CE} + L_{Z} = -\log\frac{e^{z_{y}}}{\sum_{j}e^{z_{j}}} + \alpha\left(\log\sum_{j}e^{z_{j}}\right)^{2}$$</p>
+<ul>
+<li>当$\sum_{j}e^{z_{j}} = 1$时最优.</li>
+</ul>
+</li>
+<li>
+<p>For attention softmaxes: Normalization always works</p>
+<ul>
+<li>经典的$\sqrt{d_{k}}$.</li>
+<li>更新的做法：线性变换得到Q和K之后先进行Normalization.</li>
+<li>其他做法：通过Tanh对Logits进行软上限处理，使其不超过某个最大值.<br>
+$$\mathrm{logits} ← \mathrm{softcap} * \tanh(\mathrm{logits} / \mathrm{softcap})$$</li>
+</ul>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/10/12/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-2%E7%AC%94%E8%AE%B0/" rel="prev" title="【CS336: Language Modeling from Scratch】Lecture-2笔记">
+      <i class="fa fa-chevron-left"></i> 【CS336: Language Modeling from Scratch】Lecture-2笔记
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#03-Architecture-Training"><span class="nav-number">1.</span> <span class="nav-text">03_Architecture, Training</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Vanilla-transformer"><span class="nav-number">1.1.</span> <span class="nav-text">Vanilla transformer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Architecture"><span class="nav-number">1.2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-hyperparameters-Very-empirical-and-isn%E2%80%99t-written-in-stone"><span class="nav-number">1.3.</span> <span class="nav-text">Training: hyperparameters (Very empirical and isn’t written in stone)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Training-stability"><span class="nav-number">1.4.</span> <span class="nav-text">Training: stability</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Xianrui Xie</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xianrui Xie</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
