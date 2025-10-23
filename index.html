@@ -194,7 +194,7 @@ window.MathJax = {
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2025-10-21 00:33:25" itemprop="dateModified" datetime="2025-10-21T00:33:25+08:00">2025-10-21</time>
+                <time title="Modified: 2025-10-23 21:59:31" itemprop="dateModified" datetime="2025-10-23T21:59:31+08:00">2025-10-23</time>
               </span>
 
           
@@ -419,7 +419,8 @@ Don’t train models that look like the blue curve!</p>
 <ul>
 <li>指标1：Loss.</li>
 <li>指标2：梯度范数.</li>
-<li>训练稳定性的核心是激活值尺度和参数尺度，问题常常出在Softmax：CE损失没有约束Logits尺度导致Softmax中的指数操作出现上溢或下溢，进而影响训练稳定性.</li>
+<li>训练稳定性的核心是激活值尺度和参数尺度，问题常常出在Softmax：CE损失没有约束Logits尺度导致Softmax中的指数操作出现上溢或下溢，进而影响训练稳定性.<br>
+<img src="/images/【CS336: Language Modeling from Scratch】Lecture-3笔记/softmax_instability.png" alt="softmax_instability" /></li>
 </ul>
 </li>
 <li>
