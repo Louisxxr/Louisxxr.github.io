@@ -38,12 +38,12 @@ window.MathJax = {
 </script>
 
 
-  <meta name="description" content="Stanford CS336, Spring 2025: Outline &amp; Key points  02_Tensor theory, Resource accounting, Practical advice Napkin math   1024 H100集群，15T tokens，训练一个70B模型，需要多少天？                     #mjx-7e70a7f{">
+  <meta name="description" content="Stanford CS336, Spring 2025: Outline &amp; Key points  02_Tensor theory, Resource accounting, Practical advice Napkin math   1024 H100集群，15T tokens，训练一个70B模型，需要多少天？                     #mjx-c69309a8{">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【CS336: Language Modeling from Scratch】Lecture-2笔记">
+<meta property="og:title" content="【CS336】Lecture-2笔记 | Tensor theory, Resource accounting, Practical advice">
 <meta property="og:url" content="http://example.com/2025/10/12/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-2%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="Louis&#39; Notes">
-<meta property="og:description" content="Stanford CS336, Spring 2025: Outline &amp; Key points  02_Tensor theory, Resource accounting, Practical advice Napkin math   1024 H100集群，15T tokens，训练一个70B模型，需要多少天？                     #mjx-7e70a7f{">
+<meta property="og:description" content="Stanford CS336, Spring 2025: Outline &amp; Key points  02_Tensor theory, Resource accounting, Practical advice Napkin math   1024 H100集群，15T tokens，训练一个70B模型，需要多少天？                     #mjx-c69309a8{">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-2%E7%AC%94%E8%AE%B0/fp32.png">
 <meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-2%E7%AC%94%E8%AE%B0/fp16.png">
@@ -52,8 +52,9 @@ window.MathJax = {
 <meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-2%E7%AC%94%E8%AE%B0/tensor.png">
 <meta property="og:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-2%E7%AC%94%E8%AE%B0/simplest_model.png">
 <meta property="article:published_time" content="2025-10-12T08:39:00.000Z">
-<meta property="article:modified_time" content="2025-10-12T10:04:32.796Z">
+<meta property="article:modified_time" content="2026-09-29T10:12:00.493Z">
 <meta property="article:author" content="Xianrui Xie">
+<meta property="article:tag" content="LLM">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/images/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-2%E7%AC%94%E8%AE%B0/fp32.png">
 
@@ -70,7 +71,7 @@ window.MathJax = {
   };
 </script>
 
-  <title>【CS336: Language Modeling from Scratch】Lecture-2笔记 | Louis' Notes</title>
+  <title>【CS336】Lecture-2笔记 | Tensor theory, Resource accounting, Practical advice | Louis' Notes</title>
   
 
 
@@ -142,6 +143,16 @@ window.MathJax = {
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
@@ -188,7 +199,7 @@ window.MathJax = {
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          【CS336: Language Modeling from Scratch】Lecture-2笔记
+          【CS336】Lecture-2笔记 | Tensor theory, Resource accounting, Practical advice
         </h1>
 
         <div class="post-meta">
@@ -197,9 +208,24 @@ window.MathJax = {
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2025-10-12 16:39:00 / Modified: 18:04:32" itemprop="dateCreated datePublished" datetime="2025-10-12T16:39:00+08:00">2025-10-12</time>
+              <time title="Created: 2025-10-12 16:39:00" itemprop="dateCreated datePublished" datetime="2025-10-12T16:39:00+08:00">2025-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2026-09-29 18:12:00" itemprop="dateModified" datetime="2026-09-29T18:12:00+08:00">2026-09-29</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CS336-Language-Modeling-from-Scratch/" itemprop="url" rel="index"><span itemprop="name">CS336: Language Modeling from Scratch</span></a>
+                </span>
             </span>
 
           
@@ -223,9 +249,9 @@ window.MathJax = {
 <p>1024 H100集群，15T tokens，训练一个70B模型，需要多少天？</p>
 <blockquote>
 <p>
-    <span id="mjx-7e70a7f">
+    <span id="mjx-c69309a8">
       <style>
-      #mjx-7e70a7f{
+      #mjx-c69309a8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -385,9 +411,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </p>
 <p>
-    <span id="mjx-fd8e957">
+    <span id="mjx-75d150b8">
       <style>
-      #mjx-fd8e957{
+      #mjx-75d150b8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -547,9 +573,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </p>
 <p>
-    <span id="mjx-b9928b6">
+    <span id="mjx-86f873">
       <style>
-      #mjx-b9928b6{
+      #mjx-86f873{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -709,9 +735,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </p>
 <p>
-    <span id="mjx-fae85c5">
+    <span id="mjx-69dfb69">
       <style>
-      #mjx-fae85c5{
+      #mjx-69dfb69{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -871,9 +897,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </p>
 <p>
-    <span id="mjx-f5d804d">
+    <span id="mjx-f52e818">
       <style>
-      #mjx-f5d804d{
+      #mjx-f52e818{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1038,9 +1064,9 @@ g[data-mml-node="xypic"] path {
 <p>8 H100集群，使用Adam优化器，能训练多大模型？（Naively）</p>
 <blockquote>
 <p>
-    <span id="mjx-45d1b3a">
+    <span id="mjx-84b0c7b8">
       <style>
-      #mjx-45d1b3a{
+      #mjx-84b0c7b8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1200,9 +1226,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </p>
 <p>
-    <span id="mjx-cc67546">
+    <span id="mjx-26eed278">
       <style>
-      #mjx-cc67546{
+      #mjx-26eed278{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1362,9 +1388,9 @@ g[data-mml-node="xypic"] path {
     </span>
   </p>
 <p>
-    <span id="mjx-7a822ea">
+    <span id="mjx-5ab4cbc8">
       <style>
-      #mjx-7a822ea{
+      #mjx-5ab4cbc8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1691,9 +1717,9 @@ g[data-mml-node="xypic"] path {
 <p>引入MFU（Model FLOPs utilization）的概念：</p>
 <ul>
 <li>
-    <span id="mjx-750c9d3">
+    <span id="mjx-c29d95a8">
       <style>
-      #mjx-750c9d3{
+      #mjx-c29d95a8{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -1881,9 +1907,9 @@ g[data-mml-node="xypic"] path {
 <li>Xavier初始化：为了保证训练稳定性（避免梯度爆炸和梯度消失），我们希望模型各层激活值的方差和模型输入保持一致，经过推导，可以得到模型线性变换参数标准差应为输入维度的倒数开方.<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w = nn.Parameter(torch.randn(input_dim, output_dim) / np.sqrt(input_dim))</span><br></pre></td></tr></table></figure>
 </li>
 <li>Attention操作中除以
-    <span id="mjx-b580755">
+    <span id="mjx-39f49b88">
       <style>
-      #mjx-b580755{
+      #mjx-39f49b88{
         display:contents;
         mjx-assistive-mml {
           user-select: text !important;
@@ -2084,6 +2110,9 @@ g[data-mml-node="xypic"] path {
     
 
       <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/LLM/" rel="tag"># LLM</a>
+          </div>
 
         
 
@@ -2091,12 +2120,12 @@ g[data-mml-node="xypic"] path {
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2025/10/04/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-1%E7%AC%94%E8%AE%B0/" rel="prev" title="【CS336: Language Modeling from Scratch】Lecture-1笔记">
-      <i class="fa fa-chevron-left"></i> 【CS336: Language Modeling from Scratch】Lecture-1笔记
+    <a href="/2025/10/04/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-1%E7%AC%94%E8%AE%B0/" rel="prev" title="【CS336】Lecture-1笔记 | Intro, Assignments, Tokenizer">
+      <i class="fa fa-chevron-left"></i> 【CS336】Lecture-1笔记 | Intro, Assignments, Tokenizer
     </a></div>
       <div class="post-nav-item">
-    <a href="/2025/10/20/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/" rel="next" title="【CS336: Language Modeling from Scratch】Lecture-3笔记">
-      【CS336: Language Modeling from Scratch】Lecture-3笔记 <i class="fa fa-chevron-right"></i>
+    <a href="/2025/10/20/%E3%80%90CS336:%20Language%20Modeling%20from%20Scratch%E3%80%91Lecture-3%E7%AC%94%E8%AE%B0/" rel="next" title="【CS336】Lecture-3笔记 | Architecture, Training">
+      【CS336】Lecture-3笔记 | Architecture, Training <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -2173,6 +2202,18 @@ g[data-mml-node="xypic"] path {
           <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">posts</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
 </div>
