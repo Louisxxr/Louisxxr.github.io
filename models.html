@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+
+<!-- MathJax -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],  // 行内公式
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]  // 块公式
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+
+  <meta name="description" content="Frontier LLM Models Index        :root {       color-scheme: light dark;       --bg: #f7f8f6;       --surface: #ffffff;       --surface-2: #eef1ed;       --text: #202421;       --muted:">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Louis&#39; Notes">
+<meta property="og:url" content="http://example.com/models.html">
+<meta property="og:site_name" content="Louis&#39; Notes">
+<meta property="og:description" content="Frontier LLM Models Index        :root {       color-scheme: light dark;       --bg: #f7f8f6;       --surface: #ffffff;       --surface-2: #eef1ed;       --text: #202421;       --muted:">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2026-10-28T12:08:21.300Z">
+<meta property="article:modified_time" content="2026-10-28T12:08:08.079Z">
+<meta property="article:author" content="Xianrui Xie">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/models">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'en'
+  };
+</script>
+
+  <title> | Louis' Notes
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Louis' Notes</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="en">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Frontier LLM models release index, with technical reports and official technical posts.">
+  <title>Frontier LLM Models Index</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f8f6;
+      --surface: #ffffff;
+      --surface-2: #eef1ed;
+      --text: #202421;
+      --muted: #66706a;
+      --line: #d8ddd8;
+      --line-strong: #aeb8b1;
+      --accent: #126a62;
+      --accent-soft: #dcefeb;
+      --accent-ink: #0b4d47;
+      --marker: #a24d18;
+      --marker-soft: #f5e7dc;
+      --focus: #1976d2;
+      --shadow: 0 1px 2px rgba(23, 31, 26, 0.06);
+      --radius: 6px;
+      --content: 1180px;
+      --font-sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #151815;
+        --surface: #1d211e;
+        --surface-2: #262c28;
+        --text: #edf0ed;
+        --muted: #aab4ad;
+        --line: #343b36;
+        --line-strong: #59635c;
+        --accent: #73c9bd;
+        --accent-soft: #173f3b;
+        --accent-ink: #b7eee7;
+        --marker: #e6a06f;
+        --marker-soft: #4a2e1f;
+        --focus: #78b8ff;
+        --shadow: none;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.55;
+      letter-spacing: 0;
+    }
+
+    button,
+    input,
+    select { font: inherit; }
+
+    button,
+    select { cursor: pointer; }
+
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    a:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--focus) 42%, transparent);
+      outline-offset: 2px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    a:hover { text-decoration-thickness: 2px; }
+
+    .page-shell {
+      width: min(100% - 32px, var(--content));
+      margin: 0 auto;
+    }
+
+    .masthead {
+      padding: 40px 0 26px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p { margin-top: 0; }
+
+    h1 {
+      max-width: 760px;
+      margin-bottom: 12px;
+      font-size: clamp(30px, 5vw, 52px);
+      line-height: 1.06;
+      font-weight: 650;
+    }
+
+    .dek {
+      max-width: 780px;
+      margin-bottom: 20px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .meta-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .meta-line strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .controls-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: color-mix(in srgb, var(--bg) 94%, transparent);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) minmax(140px, 190px) auto;
+      gap: 10px;
+      align-items: end;
+      padding: 14px 0;
+    }
+
+    .field {
+      display: grid;
+      gap: 5px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .input,
+    .select,
+    .button {
+      min-height: 40px;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .input,
+    .select { width: 100%; padding: 8px 11px; }
+
+    .button {
+      padding: 8px 13px;
+      font-weight: 600;
+    }
+
+    .button:hover { background: var(--surface-2); }
+
+    .view-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 26px 0 16px;
+    }
+
+    .tabs {
+      display: inline-flex;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface-2);
+    }
+
+    .tab {
+      min-height: 36px;
+      padding: 6px 12px;
+      border: 0;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+
+    .result-count {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .panel[hidden] { display: none; }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line-strong);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td { border-bottom: 0; }
+
+    th {
+      background: var(--surface-2);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    tbody tr:hover { background: color-mix(in srgb, var(--accent-soft) 35%, transparent); }
+
+    tbody tr.is-marker { background: color-mix(in srgb, var(--marker-soft) 45%, transparent); }
+    tbody tr.is-marker:hover { background: color-mix(in srgb, var(--marker-soft) 72%, transparent); }
+
+    .date-cell {
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .lab-cell { white-space: nowrap; }
+
+    .model-name {
+      display: block;
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .subline {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .report-link {
+      display: inline;
+      color: var(--text);
+      font-weight: 550;
+    }
+
+    .report-link::after {
+      content: " \2197";
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: var(--accent-soft);
+      color: var(--accent-ink);
+      font-size: 11px;
+      font-weight: 650;
+      white-space: nowrap;
+    }
+
+    .tag.marker {
+      background: var(--marker-soft);
+      color: var(--marker);
+    }
+
+    .lab-groups {
+      display: grid;
+      gap: 34px;
+    }
+
+    .lab-section {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 30px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line-strong);
+    }
+
+    .lab-heading {
+      position: sticky;
+      top: 92px;
+      align-self: start;
+    }
+
+    .lab-heading h2 {
+      margin-bottom: 5px;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 650;
+    }
+
+    .lab-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 0;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      left: 94px;
+      width: 1px;
+      background: var(--line-strong);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 76px 1fr;
+      gap: 38px;
+      min-height: 88px;
+      padding: 0 0 22px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 90px;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--bg);
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .timeline-item.is-marker::before { background: var(--marker); }
+
+    .timeline-date {
+      padding-top: 1px;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .timeline-content h3 {
+      margin-bottom: 5px;
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 650;
+    }
+
+    .timeline-content p {
+      margin-bottom: 4px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .timeline-content .report-link {
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .empty-state {
+      padding: 50px 16px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 820px) {
+      .controls { grid-template-columns: 1fr 1fr; }
+      .field-search { grid-column: 1 / -1; }
+      .sort-button { width: 100%; }
+    }
+
+    @media (max-width: 650px) {
+      .page-shell { width: min(100% - 22px, var(--content)); }
+      .masthead { padding-top: 28px; }
+      h1 { font-size: 34px; }
+      .controls { grid-template-columns: 1fr; }
+      .field-search { grid-column: auto; }
+      .view-bar { align-items: stretch; flex-direction: column; }
+      .tabs { display: grid; grid-template-columns: 1fr 1fr; }
+      .result-count { text-align: left; }
+      .lab-section { grid-template-columns: 1fr; gap: 14px; }
+      .lab-heading { position: static; }
+      .timeline::before { left: 90px; }
+      .timeline-item { grid-template-columns: 76px 1fr; gap: 28px; }
+      .timeline-item::before { left: 86px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <div class="page-shell">
+      <p class="eyebrow">Open-weight releases & frontier milestones</p>
+      <h1>Frontier LLM Models Index</h1>
+      <div class="meta-line" aria-label="索引摘要">
+        <span><strong id="totalCount">0</strong> 个发布</span>
+        <span><strong id="openCount">0</strong> 个开源模型</span>
+        <span>更新日期 <strong>2026-10-28</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls-wrap">
+    <div class="page-shell controls" aria-label="筛选模型">
+      <div class="field field-search">
+        <label for="searchInput">搜索</label>
+        <input class="input" id="searchInput" type="search" placeholder="模型、Lab 或报告标题" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="labFilter">按 Lab 筛选</label>
+        <select class="select" id="labFilter">
+          <option value="all">不限</option>
+          <option value="openai">OpenAI</option>
+          <option value="anthropic">Anthropic</option>
+          <option value="google">Google</option>
+          <option value="deepseek">DeepSeek</option>
+          <option value="kimi">Kimi</option>
+          <option value="glm">GLM</option>
+          <option value="qwen">Qwen</option>
+          <option value="other">其他</option>
+        </select>
+      </div>
+      <button class="button sort-button" id="sortButton" type="button" aria-label="切换时间排序" aria-pressed="false">最近</button>
+    </div>
+  </div>
+
+  <main class="page-shell">
+    <div class="view-bar">
+      <p class="result-count" id="resultCount" aria-live="polite"></p>
+    </div>
+
+    <section class="panel" id="tablePanel">
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Frontier LLM 发布时间、Lab、模型和技术报告</caption>
+          <thead>
+            <tr>
+              <th scope="col">发布时间</th>
+              <th scope="col">Lab</th>
+              <th scope="col">模型</th>
+              <th scope="col">技术报告</th>
+            </tr>
+          </thead>
+          <tbody id="modelTableBody"></tbody>
+        </table>
+      </div>
+      <div class="empty-state" id="tableEmpty" hidden>没有匹配的条目。</div>
+    </section>
+
+  </main>
+
+  <script>
+    "use strict";
+
+    /*
+      DATA MAINTENANCE
+      ----------------
+      Add one object per meaningful release. The UI, counts, chart, table, filters,
+      and lab timelines are generated from this array.
+
+      group:  openai | anthropic | google | deepseek | kimi | glm | qwen | other
+      access: open | closed
+      sortDate: ISO date used only when a display date has month precision.
+    */
+    const MODEL_DATA = [
+      {
+        date: "2024-03-04",
+        sortDate: "2024-03-04",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude 3",
+        report: "Introducing the next generation of Claude",
+        url: "https://www.anthropic.com/news/claude-3-family",
+        access: "closed",
+      },
+      {
+        date: "2024-05-13",
+        sortDate: "2024-05-13",
+        lab: "OpenAI",
+        group: "openai",
+        model: "GPT-4o",
+        report: "Hello GPT-4o",
+        url: "https://openai.com/index/hello-gpt-4o/",
+        access: "closed",
+      },
+      {
+        date: "2024-06-20",
+        sortDate: "2024-06-20",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude 3.5 Sonnet",
+        report: "Claude 3.5 Sonnet",
+        url: "https://www.anthropic.com/news/claude-3-5-sonnet",
+        access: "closed",
+      },
+      {
+        date: "2024-09-12",
+        sortDate: "2024-09-12",
+        lab: "OpenAI",
+        group: "openai",
+        model: "o1-preview / o1-mini",
+        report: "Introducing OpenAI o1-preview",
+        url: "https://openai.com/index/introducing-openai-o1-preview/",
+        access: "closed",
+      },
+      {
+        date: "2024-11-26",
+        sortDate: "2024-11-26",
+        lab: "Allen Institute for AI",
+        group: "other",
+        model: "OLMo 2",
+        report: "2 OLMo 2 Furious",
+        url: "https://arxiv.org/pdf/2501.00656",
+        access: "open",
+      },
+      {
+        date: "2024-12-26",
+        sortDate: "2024-12-26",
+        lab: "DeepSeek",
+        group: "deepseek",
+        model: "DeepSeek-V3",
+        report: "DeepSeek-V3 Technical Report",
+        url: "https://arxiv.org/pdf/2412.19437",
+        access: "open",
+      },
+      {
+        date: "2025-01-20",
+        sortDate: "2025-01-20",
+        lab: "DeepSeek",
+        group: "deepseek",
+        model: "DeepSeek-R1",
+        report: "DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning",
+        url: "https://arxiv.org/pdf/2501.12948",
+        access: "open",
+      },
+      {
+        date: "2025-02-24",
+        sortDate: "2025-02-24",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude 3.7 Sonnet",
+        report: "Claude 3.7 Sonnet and Claude Code",
+        url: "https://www.anthropic.com/news/claude-3-7-sonnet",
+        access: "closed",
+      },
+      {
+        date: "2025-02-27",
+        sortDate: "2025-02-27",
+        lab: "OpenAI",
+        group: "openai",
+        model: "GPT-4.5",
+        report: "Introducing GPT-4.5",
+        url: "https://openai.com/index/introducing-gpt-4-5/",
+        access: "closed",
+      },
+      {
+        date: "2025-03-12",
+        sortDate: "2025-03-12",
+        lab: "Google DeepMind",
+        group: "google",
+        model: "Gemma 3",
+        report: "Gemma 3 Technical Report",
+        url: "https://arxiv.org/pdf/2503.19786",
+        access: "open",
+      },
+      {
+        date: "2025-03-17",
+        sortDate: "2025-03-17",
+        lab: "Mistral AI",
+        group: "other",
+        model: "Mistral Small 3.1",
+        report: "Mistral Small 3.1",
+        url: "https://mistral.ai/news/mistral-small-3-1",
+        access: "open",
+      },
+      {
+        date: "2025-04-05",
+        sortDate: "2025-04-05",
+        lab: "Meta AI",
+        group: "other",
+        model: "Llama 4 Scout / Maverick",
+        report: "The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation",
+        url: "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+        access: "open",
+      },
+      {
+        date: "2025-04-16",
+        sortDate: "2025-04-16",
+        lab: "OpenAI",
+        group: "openai",
+        model: "o3 / o4-mini",
+        report: "Introducing OpenAI o3 and o4-mini",
+        url: "https://openai.com/index/introducing-o3-and-o4-mini/",
+        access: "closed",
+      },
+      {
+        date: "2025-04-28",
+        sortDate: "2025-04-28",
+        lab: "Alibaba Cloud / Qwen",
+        group: "qwen",
+        model: "Qwen3",
+        report: "Qwen3 Technical Report",
+        url: "https://arxiv.org/pdf/2505.09388",
+        access: "open",
+      },
+      {
+        date: "2025-05-22",
+        sortDate: "2025-05-22",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude Opus 4 / Sonnet 4",
+        report: "Introducing Claude 4",
+        url: "https://www.anthropic.com/news/claude-4",
+        access: "closed",
+      },
+      {
+        date: "2025-07-08",
+        sortDate: "2025-07-08",
+        lab: "Hugging Face",
+        group: "other",
+        model: "SmolLM3",
+        report: "SmolLM3: smol, multilingual, long-context reasoner",
+        url: "https://huggingface.co/blog/smollm3",
+        access: "open",
+      },
+      {
+        date: "2025-07-11",
+        sortDate: "2025-07-11",
+        lab: "Moonshot AI / Kimi",
+        group: "kimi",
+        model: "Kimi K2",
+        report: "Kimi K2: Open Agentic Intelligence",
+        url: "https://arxiv.org/pdf/2507.20534",
+        access: "open",
+      },
+      {
+        date: "2025-07-22",
+        sortDate: "2025-07-22",
+        lab: "Alibaba Cloud / Qwen",
+        group: "qwen",
+        model: "Qwen3-Coder",
+        report: "Qwen3-Coder: Agentic Coding in the World",
+        url: "https://qwenlm.github.io/blog/qwen3-coder/",
+        access: "open",
+      },
+      {
+        date: "2025-07-28",
+        sortDate: "2025-07-28",
+        lab: "Z.ai / GLM",
+        group: "glm",
+        model: "GLM-4.5",
+        report: "GLM-4.5: Agentic, Reasoning, and Coding (ARC) Foundation Models",
+        url: "https://arxiv.org/pdf/2508.06471",
+        access: "open",
+      },
+      {
+        date: "2025-08-05",
+        sortDate: "2025-08-05",
+        lab: "OpenAI",
+        group: "openai",
+        model: "gpt-oss-120b / gpt-oss-20b",
+        report: "gpt-oss-120b & gpt-oss-20b Model Card",
+        url: "https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf",
+        access: "open",
+      },
+      {
+        date: "2025-08-07",
+        sortDate: "2025-08-07",
+        lab: "OpenAI",
+        group: "openai",
+        model: "GPT-5",
+        report: "Introducing GPT-5",
+        url: "https://openai.com/index/introducing-gpt-5/",
+        access: "closed",
+      },
+      {
+        date: "2025-09-11",
+        sortDate: "2025-09-11",
+        lab: "Alibaba Cloud / Qwen",
+        group: "qwen",
+        model: "Qwen3-Next",
+        report: "Qwen3-Next: Towards Ultimate Training & Inference Efficiency",
+        url: "https://qwenlm.github.io/blog/qwen3-next/",
+        access: "open",
+      },
+      {
+        date: "2025-09-29",
+        sortDate: "2025-09-29",
+        lab: "DeepSeek",
+        group: "deepseek",
+        model: "DeepSeek-V3.2-Exp",
+        report: "DeepSeek-V3.2-Exp: Boosting Long-Context Efficiency with DeepSeek Sparse Attention",
+        url: "https://api-docs.deepseek.com/news/news250929",
+        access: "open",
+      },
+      {
+        date: "2025-09-29",
+        sortDate: "2025-09-29",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude Sonnet 4.5",
+        report: "Claude Sonnet 4.5",
+        url: "https://www.anthropic.com/news/claude-sonnet-4-5",
+        access: "closed",
+      },
+      {
+        date: "2025-10-27",
+        sortDate: "2025-10-27",
+        lab: "MiniMax",
+        group: "other",
+        model: "MiniMax-M2",
+        report: "MiniMax-M2",
+        url: "https://huggingface.co/MiniMaxAI/MiniMax-M2",
+        access: "open",
+      },
+      {
+        date: "2025-10-30",
+        sortDate: "2025-10-30",
+        lab: "Moonshot AI / Kimi",
+        group: "kimi",
+        model: "Kimi Linear",
+        report: "Kimi Linear: An Expressive, Efficient Attention Architecture",
+        url: "https://arxiv.org/pdf/2510.26692",
+        access: "open",
+      },
+      {
+        date: "2025-11-06",
+        sortDate: "2025-11-06",
+        lab: "Moonshot AI / Kimi",
+        group: "kimi",
+        model: "Kimi K2 Thinking",
+        report: "Kimi K2 Thinking",
+        url: "https://huggingface.co/moonshotai/Kimi-K2-Thinking",
+        access: "open",
+      },
+      {
+        date: "2025-11-12",
+        sortDate: "2025-11-12",
+        lab: "OpenAI",
+        group: "openai",
+        model: "GPT-5.1",
+        report: "GPT-5.1: A smarter, more conversational ChatGPT",
+        url: "https://openai.com/index/gpt-5-1/",
+        access: "closed",
+      },
+      {
+        date: "2025-11-20",
+        sortDate: "2025-11-20",
+        lab: "Allen Institute for AI",
+        group: "other",
+        model: "Olmo 3 / Olmo 3 Think",
+        report: "OLMo 3: Charting a Path through the Model Flow to the Frontier",
+        url: "https://www.datocms-assets.com/64837/1763662397-1763646865-olmo_3_technical_report-1.pdf",
+        access: "open",
+      },
+      {
+        date: "2025-11-24",
+        sortDate: "2025-11-24",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude Opus 4.5",
+        report: "Introducing Claude Opus 4.5",
+        url: "https://www.anthropic.com/news/claude-opus-4-5",
+        access: "closed",
+      },
+      {
+        date: "2025-12-01",
+        sortDate: "2025-12-01",
+        lab: "DeepSeek",
+        group: "deepseek",
+        model: "DeepSeek-V3.2",
+        report: "DeepSeek-V3.2: Pushing the Frontier of Open Large Language Models",
+        url: "https://arxiv.org/pdf/2512.02556",
+        access: "open",
+      },
+      {
+        date: "2025-12-11",
+        sortDate: "2025-12-11",
+        lab: "OpenAI",
+        group: "openai",
+        model: "GPT-5.2",
+        report: "Introducing GPT-5.2",
+        url: "https://openai.com/index/introducing-gpt-5-2/",
+        access: "closed",
+      },
+      {
+        date: "2025-12-15",
+        sortDate: "2025-12-15",
+        lab: "NVIDIA",
+        group: "other",
+        model: "Nemotron 3 Nano",
+        report: "NVIDIA Nemotron 3 Nano Technical Report",
+        url: "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3-Nano-Technical-Report.pdf",
+        access: "open",
+      },
+      {
+        date: "2025-12-16",
+        sortDate: "2025-12-16",
+        lab: "Xiaomi MiMo",
+        group: "other",
+        model: "MiMo-V2-Flash",
+        report: "MiMo-V2-Flash",
+        url: "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash",
+        access: "open",
+      },
+      {
+        date: "2026-01-27",
+        sortDate: "2026-01-27",
+        lab: "Moonshot AI / Kimi",
+        group: "kimi",
+        model: "Kimi K2.5",
+        report: "Kimi K2.5",
+        url: "https://huggingface.co/moonshotai/Kimi-K2.5",
+        access: "open",
+      },
+      {
+        date: "2026-02-05",
+        sortDate: "2026-02-05",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude Opus 4.6",
+        report: "Introducing Claude Opus 4.6",
+        url: "https://www.anthropic.com/news/claude-opus-4-6",
+        access: "closed",
+      },
+      {
+        date: "2026-02-11",
+        sortDate: "2026-02-11",
+        lab: "Z.ai / GLM",
+        group: "glm",
+        model: "GLM-5",
+        report: "GLM-5",
+        url: "https://huggingface.co/zai-org/GLM-5",
+        access: "open",
+      },
+      {
+        date: "2026-02-15",
+        sortDate: "2026-02-15",
+        lab: "Alibaba Cloud / Qwen",
+        group: "qwen",
+        model: "Qwen3.5",
+        report: "Qwen3.5",
+        url: "https://huggingface.co/collections/Qwen/qwen35",
+        access: "open",
+      },
+      {
+        date: "2026-02-17",
+        sortDate: "2026-02-17",
+        lab: "Anthropic",
+        group: "anthropic",
+        model: "Claude Sonnet 4.6",
+        report: "Introducing Claude Sonnet 4.6",
+        url: "https://www.anthropic.com/news/claude-sonnet-4-6",
+        access: "closed",
+      },
+      {
+        date: "2026-03-05",
+        sortDate: "2026-03-05",
+        lab: "OpenAI",
+        group: "openai",
+        model: "GPT-5.4",
+        report: "Introducing GPT-5.4",
+        url: "https://openai.com/index/introducing-gpt-5-4/",
+        access: "closed",
+      },
+      {
+        date: "2026-04-02",
+        sortDate: "2026-04-02",
+        lab: "Google DeepMind",
+        group: "google",
+        model: "Gemma 4",
+        report: "Gemma 4",
+        url: "https://huggingface.co/google/gemma-4-31B",
+        access: "open",
+      },
+      {
+        date: "2025-05-20",
+        sortDate: "2025-05-20",
+        lab: "Google DeepMind",
+        group: "google",
+        model: "Gemma 3n",
+        report: "Introducing Gemma 3n",
+        url: "https://developers.googleblog.com/en/introducing-gemma-3n/",
+        access: "open",
+      },
+      {
+        date: "2025-08-23",
+        sortDate: "2025-08-23",
+        lab: "xAI",
+        group: "other",
+        model: "Grok 2.5",
+        report: "Grok 2.5 Model Card",
+        url: "https://huggingface.co/xai-org/grok-2",
+        access: "open",
+      },
+      {
+        date: "2025-12-02",
+        sortDate: "2025-12-02",
+        lab: "Mistral AI",
+        group: "other",
+        model: "Mistral 3 (Mistral Large 3 / Ministral 3)",
+        report: "Mistral 3",
+        url: "https://mistral.ai/news/mistral-3",
+        access: "open",
+      },
+      {
+        date: "2026-01-27",
+        sortDate: "2026-01-27",
+        lab: "Arcee AI",
+        group: "other",
+        model: "Trinity Large",
+        report: "Trinity Large Technical Report",
+        url: "https://github.com/arcee-ai/trinity-large-tech-report",
+        access: "open",
+      },
+      {
+        date: "2026-02-01",
+        sortDate: "2026-02-01",
+        lab: "StepFun",
+        group: "other",
+        model: "Step 3.5 Flash",
+        report: "Step 3.5 Flash",
+        url: "https://huggingface.co/stepfun-ai/Step-3.5-Flash",
+        access: "open",
+      },
+      {
+        date: "2026-02-03",
+        sortDate: "2026-02-03",
+        lab: "Alibaba Cloud / Qwen",
+        group: "qwen",
+        model: "Qwen3-Coder-Next",
+        report: "Qwen3-Coder-Next Technical Report",
+        url: "https://raw.githubusercontent.com/QwenLM/Qwen3-Coder/main/qwen3_coder_next_tech_report.pdf",
+        access: "open",
+      },
+      {
+        date: "2026-02-12",
+        sortDate: "2026-02-12",
+        lab: "MiniMax",
+        group: "other",
+        model: "MiniMax-M2.5",
+        report: "MiniMax-M2.5",
+        url: "https://huggingface.co/MiniMaxAI/MiniMax-M2.5",
+        access: "open",
+      },
+      {
+        date: "2026-02-13",
+        sortDate: "2026-02-13",
+        lab: "Nanbeige",
+        group: "other",
+        model: "Nanbeige 4.1 3B",
+        report: "Nanbeige 4.1 3B",
+        url: "https://huggingface.co/Nanbeige/Nanbeige4.1-3B",
+        access: "open",
+      },
+      {
+        date: "2026-02-16",
+        sortDate: "2026-02-16",
+        lab: "Ant Group / InclusionAI",
+        group: "other",
+        model: "Ling 2.5 1T",
+        report: "Ling 2.5 1T",
+        url: "https://huggingface.co/inclusionAI/Ling-2.5-1T",
+        access: "open",
+      },
+      {
+        date: "2026-02-16",
+        sortDate: "2026-02-16",
+        lab: "Ant Group / InclusionAI",
+        group: "other",
+        model: "Ring 2.5 1T",
+        report: "Ring 2.5 1T",
+        url: "https://huggingface.co/inclusionAI/Ring-2.5-1T",
+        access: "open",
+      },
+      {
+        date: "2026-02-17",
+        sortDate: "2026-02-17",
+        lab: "Cohere Labs",
+        group: "other",
+        model: "Tiny Aya",
+        report: "Tiny Aya",
+        url: "https://huggingface.co/CohereLabs/tiny-aya-global",
+        access: "open",
+      },
+      {
+        date: "2026-03-06",
+        sortDate: "2026-03-06",
+        lab: "Sarvam AI",
+        group: "other",
+        model: "Sarvam 30B",
+        report: "Sarvam 30B",
+        url: "https://huggingface.co/sarvamai/sarvam-30b",
+        access: "open",
+      },
+      {
+        date: "2026-03-06",
+        sortDate: "2026-03-06",
+        lab: "Sarvam AI",
+        group: "other",
+        model: "Sarvam 105B",
+        report: "Sarvam 105B",
+        url: "https://huggingface.co/sarvamai/sarvam-105b",
+        access: "open",
+      },
+      {
+        date: "2026-03-11",
+        sortDate: "2026-03-11",
+        lab: "NVIDIA",
+        group: "other",
+        model: "Nemotron 3 Super (120B-A12B)",
+        report: "NVIDIA Nemotron 3 Super Technical Report",
+        url: "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3-Super-Technical-Report.pdf",
+        access: "open",
+      },
+      {
+        date: "2026-10",
+        sortDate: "2026-10-14",
+        lab: "OpenAI",
+        group: "openai",
+        model: "GPT-6 Astra",
+        report: "GPT-6 Astra",
+        url: "https://openai.com/index/gpt-6-astra/",
+        access: "closed",
+      }
+    ];
+
+    const GROUPS = [
+      { id: "openai", label: "OpenAI" },
+      { id: "anthropic", label: "Anthropic" },
+      { id: "google", label: "Google" },
+      { id: "deepseek", label: "DeepSeek" },
+      { id: "kimi", label: "Kimi" },
+      { id: "glm", label: "GLM" },
+      { id: "qwen", label: "Qwen" },
+      { id: "other", label: "其他" }
+    ];
+
+    const state = {
+      query: "",
+      lab: "all",
+      sort: "desc"
+    };
+
+    const elements = {
+      search: document.getElementById("searchInput"),
+      lab: document.getElementById("labFilter"),
+      sort: document.getElementById("sortButton"),
+      tablePanel: document.getElementById("tablePanel"),
+      tableBody: document.getElementById("modelTableBody"),
+      tableEmpty: document.getElementById("tableEmpty"),
+      resultCount: document.getElementById("resultCount"),
+      totalCount: document.getElementById("totalCount"),
+      openCount: document.getElementById("openCount")
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function filteredModels() {
+      const query = state.query.trim().toLocaleLowerCase("zh-CN");
+      return MODEL_DATA
+        .filter((item) => state.lab === "all" || item.group === state.lab)
+        .filter((item) => {
+          if (!query) return true;
+          const haystack = [item.date, item.lab, item.model, item.report]
+            .join(" ")
+            .toLocaleLowerCase("zh-CN");
+          return haystack.includes(query);
+        })
+        .sort((a, b) => {
+          const delta = a.sortDate.localeCompare(b.sortDate);
+          return state.sort === "asc" ? delta : -delta;
+        });
+    }
+
+    function renderTable(items) {
+      elements.tableBody.innerHTML = items.map((item) => `
+        <tr class="${item.access === "closed" ? "is-marker" : ""}">
+          <td class="date-cell">${escapeHtml(item.date)}</td>
+          <td class="lab-cell">${escapeHtml(item.lab)}</td>
+          <td>
+            <span class="model-name">${escapeHtml(item.model)}</span>
+          </td>
+          <td>
+            <a class="report-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.report)}</a>
+          </td>
+        </tr>
+      `).join("");
+      elements.tableEmpty.hidden = items.length > 0;
+      elements.tablePanel.querySelector(".table-wrap").hidden = items.length === 0;
+    }
+
+    function render() {
+      const items = filteredModels();
+      renderTable(items);
+      elements.resultCount.textContent = `显示 ${items.length} / ${MODEL_DATA.length} 个发布`;
+      elements.sort.textContent = state.sort === "desc" ? "最近" : "最远";
+      elements.sort.setAttribute("aria-pressed", state.sort === "asc" ? "true" : "false");
+    }
+
+    elements.search.addEventListener("input", (event) => {
+      state.query = event.target.value;
+      render();
+    });
+
+    elements.lab.addEventListener("change", (event) => {
+      state.lab = event.target.value;
+      render();
+    });
+
+    elements.sort.addEventListener("click", () => {
+      state.sort = state.sort === "desc" ? "asc" : "desc";
+      render();
+    });
+
+    elements.totalCount.textContent = MODEL_DATA.length;
+    elements.openCount.textContent = MODEL_DATA.filter((item) => item.access === "open").length;
+    render();
+  </script>
+</body>
+</html>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">Frontier LLM Models Index</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Xianrui Xie</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xianrui Xie</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
